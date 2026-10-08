@@ -1,0 +1,9 @@
+playwright>=1.47
+typer>=0.12
+python-dotenv>=1.0
+tenacity>=8.2
+pandas>=2.2
+requests>=2.31
+streamlit>=1.38
+folium>=0.17
+streamlit-folium>=0.23

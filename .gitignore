@@ -1,0 +1,7 @@
+.env
+data/*.db
+logs/screenshots/*
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
