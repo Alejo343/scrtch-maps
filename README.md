@@ -12,20 +12,41 @@ que se le de a los datos. Usalo bajo tu propio riesgo y evalua si la
 oficial es una alternativa viable para tu caso antes de operar esto a gran
 escala de forma sostenida.
 
-## Instalacion
+## Instalacion (maquina nueva)
 
 ```bash
+git clone https://github.com/Alejo343/scrtch-maps.git
+cd scrtch-maps
 python -m venv .venv
 .venv\Scripts\activate
 pip install -e .
 pip install -r requirements.txt
 playwright install chromium
 copy .env.example .env
+python -m gmaps_scraper.cli init
 ```
 
 Edita `.env`: como minimo revisa `CONCURRENCY` y, si vas a operar a volumen
 alto, llena `PROXIES` con tu lista de proxies residenciales/datacenter
 rotativos. Sin proxies, Google bloqueara la IP rapido a este volumen.
+
+### Si `playwright install chromium` se queda colgado o da timeout
+
+En redes corporativas/con firewall puede fallar la descarga del navegador
+(nos paso en la maquina de desarrollo). Si pasa, hay que bajarlo a mano:
+
+1. Revisa `.venv\Lib\site-packages\playwright\driver\package\browsers.json`
+   para ver que `browserVersion` y `revision` de chromium espera tu version
+   instalada de Playwright.
+2. Descarga el zip directo (reemplaza version y revision):
+   `https://storage.googleapis.com/chrome-for-testing-public/<browserVersion>/win64/chrome-win64.zip`
+   (y el equivalente `chrome-headless-shell-win64.zip`).
+3. Extrae cada uno dentro de `%LOCALAPPDATA%\ms-playwright\chromium-<revision>\`
+   y `...\chromium_headless_shell-<revision>\` respectivamente (debe quedar
+   `chrome-win64\chrome.exe` y `chrome-headless-shell-win64\chrome-headless-shell.exe`).
+4. Crea un archivo vacio llamado `INSTALLATION_COMPLETE` dentro de cada una
+   de esas dos carpetas (`chromium-<revision>\` y `chromium_headless_shell-<revision>\`)
+   para que Playwright no intente volver a descargarlos.
 
 ## Interfaz grafica (GUI)
 
